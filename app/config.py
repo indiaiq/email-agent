@@ -5,7 +5,7 @@ CLEANUP_QUERY = 'is:unread older_than:90d -label:AI -label:Fiber -label:Farm'
 
 # Safety settings
 DRY_RUN = False
-BATCH_LIMIT = 50
+BATCH_LIMIT = 100
 
 # Important senders you do NOT want archived automatically
 SENDER_WHITELIST = [

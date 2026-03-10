@@ -1,3 +1,5 @@
+import time
+
 from app.gmail_client import (
     get_gmail_service,
     search_messages,
@@ -74,6 +76,7 @@ def run_cleanup():
             archive_message(service, message_id)
             print("Action: ARCHIVED")
             archived_count += 1
+            time.sleep(0.3)
 
     print("\n=== CLEANUP SUMMARY ===")
     print(f"Matched messages: {len(messages)}")

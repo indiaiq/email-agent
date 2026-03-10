@@ -5,6 +5,7 @@ __pycache__/
 *.pyc
 logs/
 credentials.json
+token.pickle
 =======
 # Byte-compiled / optimized / DLL files
 __pycache__/
