@@ -41,13 +41,13 @@ def get_message_metadata(service, message_id: str):
 
 def archive_message(service, message_id: str):
     """
-    Archive a message by removing the INBOX label.
+    Archive a message by removing the INBOX label and remove the UNREAD label.
     This does NOT delete the email.
     """
     service.users().messages().modify(
         userId="me",
         id=message_id,
         body={
-            "removeLabelIds": ["INBOX"]
+            "removeLabelIds": ["INBOX", "UNREAD"]
         }
     ).execute()
