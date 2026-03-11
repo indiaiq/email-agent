@@ -5,6 +5,7 @@ from app.gmail_client import (
     search_messages,
     get_message_metadata,
     archive_message,
+    count_messages,
 )
 from app.config import CLEANUP_QUERY, DRY_RUN, BATCH_LIMIT, SENDER_WHITELIST
 
@@ -31,7 +32,11 @@ def run_cleanup():
     """
     Find old unread emails, skip protected ones, and archive safely.
     """
+
     service = get_gmail_service()
+
+    remaining_before = count_messages(service, CLEANUP_QUERY)
+    print(f"\nRemaining emails matching query before batch: {remaining_before}")
 
     print("\n=== CLEANUP START ===")
     print(f"Query: {CLEANUP_QUERY}")
@@ -39,6 +44,11 @@ def run_cleanup():
     print(f"Batch limit: {BATCH_LIMIT}\n")
 
     messages = search_messages(service, CLEANUP_QUERY, max_results=BATCH_LIMIT)
+
+    # process messages here (archive logic)
+
+    remaining_after = count_messages(service, CLEANUP_QUERY)
+    print(f"\nRemaining emails matching query after batch: {remaining_after}")
 
     if not messages:
         print("No matching messages found.")
@@ -73,7 +83,8 @@ def run_cleanup():
         if DRY_RUN:
             print("Action: WOULD ARCHIVE (dry-run)")
         else:
-            archive_message(service, message_id)
+            thread_id = msg["threadId"]
+            archive_thread(service, thread_id)
             print("Action: ARCHIVED")
             archived_count += 1
             time.sleep(0.3)
