@@ -52,7 +52,7 @@ def run_cleanup():
 
     if not messages:
         print("No matching messages found.")
-        return
+        return False
 
     print(f"Found {len(messages)} matching messages.\n")
 
@@ -100,6 +100,8 @@ def run_cleanup():
     print(f"Matched messages: {len(messages)}")
     print(f"Skipped by whitelist: {skipped_whitelist_count}")
     print(f"Archived: {archived_count}")
+
+    return True
 
     if DRY_RUN:
         print("Dry-run mode is ON, so no emails were changed.")
