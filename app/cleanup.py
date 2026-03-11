@@ -84,9 +84,16 @@ def run_cleanup():
             print("Action: WOULD ARCHIVE (dry-run)")
         else:
             thread_id = msg["threadId"]
-            archive_thread(service, thread_id)
-            print("Action: ARCHIVED")
-            archived_count += 1
+
+            try:
+                archive_thread(service, thread_id)
+                print("Action: ARCHIVED")
+                archived_count += 1
+
+            except Exception as e:
+                print(f"Action: ERROR archiving thread: {e}")
+                continue
+
             time.sleep(0.3)
 
     print("\n=== CLEANUP SUMMARY ===")
