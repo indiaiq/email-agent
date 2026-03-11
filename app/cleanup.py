@@ -4,7 +4,7 @@ from app.gmail_client import (
     get_gmail_service,
     search_messages,
     get_message_metadata,
-    archive_message,
+    archive_thread,
     count_messages,
 )
 from app.config import CLEANUP_QUERY, DRY_RUN, BATCH_LIMIT, SENDER_WHITELIST
@@ -35,8 +35,8 @@ def run_cleanup():
 
     service = get_gmail_service()
 
-    remaining_before = count_messages(service, CLEANUP_QUERY)
-    print(f"\nRemaining emails matching query before batch: {remaining_before}")
+    # remaining = count_messages(service, CLEANUP_QUERY)
+    # print(f"\nRemaining emails matching query before batch: {remaining}\n")
 
     print("\n=== CLEANUP START ===")
     print(f"Query: {CLEANUP_QUERY}")
@@ -47,8 +47,8 @@ def run_cleanup():
 
     # process messages here (archive logic)
 
-    remaining_after = count_messages(service, CLEANUP_QUERY)
-    print(f"\nRemaining emails matching query after batch: {remaining_after}")
+    # remaining_after = count_messages(service, CLEANUP_QUERY)
+    # print(f"\nRemaining emails matching query after batch: {remaining_after}")
 
     if not messages:
         print("No matching messages found.")

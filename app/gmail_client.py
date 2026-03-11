@@ -51,7 +51,7 @@ def archive_thread(service, thread_id: str):
         }
     ).execute()
 
-    def count_messages(service, query: str) -> int:
+def count_messages(service, query: str) -> int:
     """
     Count all messages matching a Gmail query by paging through results.
     """
